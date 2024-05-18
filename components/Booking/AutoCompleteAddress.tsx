@@ -35,7 +35,7 @@ function AutoCompleteAddress() {
   };
 
   return (
-    <div className="mt-5 md:h-[70dvh]">
+    <div className="mt-5">
       <div className="">
         <label htmlFor="from" className="text-gray-500">
           Where From?
