@@ -1,16 +1,28 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { DestinationCoordsContext } from "@/context/DestinationCoordsContext";
+import { SourceCoordsContext } from "@/context/SourceCoordsContext";
+import React, { useContext, useEffect, useState } from "react";
+
+const session_token = "05f8f635-fcbe-4518-8f8f-bbf65a0d3c3b";
+const MAP_BOX_RETRIEVE_URL =
+  "https://api.mapbox.com/search/searchbox/v1/retrieve";
 
 function AutoCompleteAddress() {
   const [source, setSource] = useState<any>();
   const [destination, setDestination] = useState<any>();
 
   const [addressList, setAddressList] = useState<any>([]);
-  //   const [destinationAddressList, setDestinationAddressList] = useState<any>([]);
 
   const [sourceChange, setSourceChange] = useState<any>(false);
   const [destinationChange, setDestinationChange] = useState<any>(false);
+
+  //destructing the co-ordinated provided by the useContext - origin of context: Dashboard -> page.tsx
+  const { sourceCoordinates, setSourceCoordinates } =
+    useContext(SourceCoordsContext);
+  const { destinationCoordinates, setDestinationCoordinates } = useContext(
+    DestinationCoordsContext
+  );
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -32,6 +44,44 @@ function AutoCompleteAddress() {
 
     const result = await res.json();
     setAddressList(result);
+  };
+
+  //HANDLE CLICK ON SOURCE ADDRESS
+  const onSourceAddressClick = async (item: any) => {
+    setSource(item.full_address);
+    setAddressList([]);
+    setSourceChange(false);
+
+    //fetch method for retrieving the coords of source address
+    const res = await fetch(
+      `${MAP_BOX_RETRIEVE_URL}/${item.mapbox_id}?session_token=${session_token}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`
+    );
+
+    const result = await res.json();
+    setSourceCoordinates({
+      longitude: result.features[0].geometry.coordinates[0],
+      latitude: result.features[0].geometry.coordinates[1],
+    });
+    console.log(result);
+  };
+
+  //HANDLE CLICK ON DESTINATION ADDRESSS
+  const onDestinationAddressClick = async (item: any) => {
+    setDestination(item.full_address);
+    setAddressList([]);
+    setDestinationChange(false);
+
+    //fetch method for retrieving the coords of source address
+    const res = await fetch(
+      `${MAP_BOX_RETRIEVE_URL}/${item.mapbox_id}?session_token=${session_token}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`
+    );
+
+    const result = await res.json();
+    setDestinationCoordinates({
+      longitude: result.features[0].geometry.coordinates[0],
+      latitude: result.features[0].geometry.coordinates[1],
+    });
+    console.log(result);
   };
 
   return (
@@ -62,9 +112,7 @@ function AutoCompleteAddress() {
                     className="p-3 hover:bg-gray-100 cursor-pointer rounded-md"
                     key={index}
                     onClick={() => {
-                      setSource(item.full_address);
-                      setAddressList([]);
-                      setSourceChange(false);
+                      onSourceAddressClick(item);
                     }}
                   >
                     {item.full_address}
@@ -100,9 +148,7 @@ function AutoCompleteAddress() {
                     className="p-3 hover:bg-gray-100 cursor-pointer rounded-md"
                     key={index}
                     onClick={() => {
-                      setDestination(item.full_address);
-                      setAddressList([]);
-                      setDestinationChange(false);
+                      onDestinationAddressClick(item);
                     }}
                   >
                     {item.full_address}

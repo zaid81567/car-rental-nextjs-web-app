@@ -17,6 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          href="https://api.tiles.mapbox.com/mapbox-gl-js/v<YOUR_MAPBOX_VERSION>/mapbox-gl.css"
+          rel="stylesheet"
+        />
+      </head>
       <body className={inter.className}>
         <ClerkProvider>{children}</ClerkProvider>
       </body>
