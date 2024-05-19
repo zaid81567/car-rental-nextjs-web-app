@@ -27,7 +27,7 @@ function AutoCompleteAddress() {
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       getAddressList();
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
   }, [source, destination]);
