@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import logo from "../../public/logo.jpg";
-import cabGraphicImage from "../../public/cab-graphic-art.webp"
+import cabGraphicImage from "../../public/cab-graphic-art.webp";
 import Link from "next/link";
 
 function Homepage() {
@@ -10,8 +10,14 @@ function Homepage() {
     <div className="grid grid-cols-1 md:grid-cols-2">
       {/* LOGO SECTION  */}
       <div className="logo-container h-[40dvh] md:h-[90vh] flex flex-col items-center justify-center px-5">
-        <Image className="object-cover w-[250px] md:w-[450px]" src={logo} alt="logo" />
-        <p className="text-[25px] md:text-[40px] font-bold">Community Connect</p>
+        <Image
+          className="object-cover w-[250px] md:w-[450px]"
+          src={logo}
+          alt="logo"
+        />
+        <p className="text-[25px] md:text-[40px] font-bold">
+          Community Connect
+        </p>
       </div>
       {/* SLOGAN + SINGIN/SINGUP SECTION  */}
       <div className=" md:bg-slate-100 h-[60dvh] md:h-[100dvh] flex flex-col items-center justify-center gap-[0px]">

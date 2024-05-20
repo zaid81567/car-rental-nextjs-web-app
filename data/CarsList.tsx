@@ -29,6 +29,6 @@ export default [
     id: 5,
     name: "Bike",
     image: "/bike.webp",
-    charges: .3,
+    charges: 0.4,
   },
 ];

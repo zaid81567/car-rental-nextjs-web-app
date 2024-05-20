@@ -9,6 +9,7 @@ import { UserLocationContext } from "@/context/UserLocationContext";
 import { SourceCoordsContext } from "@/context/SourceCoordsContext";
 import { DestinationCoordsContext } from "@/context/DestinationCoordsContext";
 import { DirectionDataContext } from "@/context/DirectionDataContext";
+import { SelectedCarAmountContext } from "@/context/SelectedCarAmountContext";
 
 function Dashboard() {
   const [userLoc, setUserLoc] = useState<any>();
@@ -19,6 +20,7 @@ function Dashboard() {
   const [sourceCoordinates, setSourceCoordinates] = useState<any>({});
   const [destinationCoordinates, setDestinationCoordinates] = useState<any>({});
   const [directionData, setDirectionData] = useState<any>({});
+  const [carAmount, setCarAmount] = useState<any>();
 
   //this will be used to get user's location when they login and then using context we'll pass this info to where it's needed
   const getUserLocation = () => {
@@ -43,14 +45,16 @@ function Dashboard() {
             <DirectionDataContext.Provider
               value={{ directionData, setDirectionData }}
             >
-              <div className="grid grid-cols-1 md:grid-cols-3">
-                <div className="">
-                  <Booking />
+              <SelectedCarAmountContext.Provider value={{carAmount, setCarAmount}}>
+                <div className="grid grid-cols-1 md:grid-cols-3">
+                  <div className="">
+                    <Booking />
+                  </div>
+                  <div className="col-span-2">
+                    <MapBoxMap />
+                  </div>
                 </div>
-                <div className="col-span-2">
-                  <MapBoxMap />
-                </div>
-              </div>
+              </SelectedCarAmountContext.Provider>
             </DirectionDataContext.Provider>
           </DestinationCoordsContext.Provider>
         </SourceCoordsContext.Provider>
