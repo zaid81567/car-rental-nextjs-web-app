@@ -24,12 +24,30 @@ function Cars() {
         {CarsList.map((item: any, index) => (
           <div
             key={index}
-            className={`flex flex-col justify-between m-2 p-2 border-[2px] rounded-md hover:border-yellow-400 active:border-yellow-200 cursor-pointer ${
-              index == selectedCar ? "border-yellow-400 border-[2px]" : null
-            }`}
+            className={`flex flex-col justify-between m-2 p-2 border-[2px] rounded-md  
+            
+             ${
+               Object.keys(directionData).length !== 0
+                 ? "cursor-pointer"
+                 : "cursor-not-allowed"
+             }
+            ${
+              Object.keys(directionData).length !== 0 && index === selectedCar
+                ? "border-yellow-400"
+                : ""
+            }
+            ${
+              Object.keys(directionData).length !== 0
+                ? "hover:border-yellow-400 active:border-yellow-200"
+                : ""
+            }
+          `}
             onClick={() => {
               setSelectedCar(index);
-              setCarAmount(getCost(item.charges));
+              console.log(Object.keys(directionData).length);
+              if (Object.keys(directionData).length !== 0) {
+                setCarAmount(getCost(item.charges));
+              }
             }}
           >
             <Image

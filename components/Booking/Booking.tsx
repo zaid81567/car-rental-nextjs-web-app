@@ -15,7 +15,7 @@ function Booking() {
   return (
     <div className="p-5">
       <h2 className="text-[20px] font-semibold">Booking</h2>
-      <div className="border-[1px] p-5 rounded-md md:h-[80dvh]">
+      <div className="border-[1px] p-5 rounded-md md:min-h-[80dvh]">
         <AutoCompleteAddress />
         <Cars />
         <Cards />
