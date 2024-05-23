@@ -26,7 +26,7 @@ function Homepage() {
           src={cabGraphicImage}
           alt="logo"
         />
-        <p className="md:text-[22px] font-mono font-sans">
+        <p className="md:text-[22px] font-sans">
           "Bridging Distances, building Connections."
         </p>
         <div className="flex gap-4 mt-6">

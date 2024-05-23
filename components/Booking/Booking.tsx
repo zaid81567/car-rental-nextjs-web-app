@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 import { SelectedCarAmountContext } from "@/context/SelectedCarAmountContext";
 
 function Booking() {
-  // const screenHeight = window.innerHeight * 0.72;
   const { carAmount, setCarAmount } = useContext(SelectedCarAmountContext);
+
   //to change page to payment page when clicked on Book btn
   const router: any = useRouter();
   return (
@@ -23,7 +23,7 @@ function Booking() {
           className={`w-full bg-gray-200 p-1 rounded-md mt-4 ${
             carAmount ? "bg-yellow-400" : null
           }`}
-          onClick={() => router.push("/payment")}
+          onClick={() => router.push(`/payment?carAmount=${carAmount}`)}
         >
           Book
         </button>

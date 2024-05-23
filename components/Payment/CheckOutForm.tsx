@@ -1,3 +1,4 @@
+
 import {
   useElements,
   useStripe,
@@ -5,9 +6,16 @@ import {
 } from "@stripe/react-stripe-js";
 import React from "react";
 
-function CheckOutForm() {
+interface CheckOutFormProps {
+  carAmount: Number;
+}
+
+const CheckOutForm: React.FC<CheckOutFormProps> = ({ carAmount }) => {
   const stripe = useStripe();
   const elements = useElements();
+
+  console.log("Car Amount Prop val : " + carAmount);
+  console.log("Car Amount Prop val : " + Number(carAmount));
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -27,7 +35,7 @@ function CheckOutForm() {
     const res = await fetch("/api/create-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: 253 }),
+      body: JSON.stringify({ amount: Number(carAmount) * 100 }),
     });
 
     const { client_secret, error: fetchError } = await res.json();
@@ -63,6 +71,6 @@ function CheckOutForm() {
       </form>
     </div>
   );
-}
+};
 
 export default CheckOutForm;
