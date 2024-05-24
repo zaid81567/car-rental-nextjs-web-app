@@ -10,6 +10,8 @@ import { SourceCoordsContext } from "@/context/SourceCoordsContext";
 import { DestinationCoordsContext } from "@/context/DestinationCoordsContext";
 import { DirectionDataContext } from "@/context/DirectionDataContext";
 import { SelectedCarAmountContext } from "@/context/SelectedCarAmountContext";
+import { BookingOrRentingContext } from "@/context/BookingOrRentingContext";
+import { NumberOfRentingDaysContext } from "@/context/NumberOfRentingDaysContext";
 
 function Dashboard() {
   const [userLoc, setUserLoc] = useState<any>();
@@ -21,6 +23,8 @@ function Dashboard() {
   const [destinationCoordinates, setDestinationCoordinates] = useState<any>({});
   const [directionData, setDirectionData] = useState<any>({});
   const [carAmount, setCarAmount] = useState<any>();
+  const [boookingOrRenting, setBookingOrRenting] = useState<any>(null);
+  const [numberOfRentingDAys, setNumberOfRentingDays] = useState<any>(null);
 
   //this will be used to get user's location when they login and then using context we'll pass this info to where it's needed
   const getUserLocation = () => {
@@ -45,15 +49,25 @@ function Dashboard() {
             <DirectionDataContext.Provider
               value={{ directionData, setDirectionData }}
             >
-              <SelectedCarAmountContext.Provider value={{carAmount, setCarAmount}}>
-                <div className="grid grid-cols-1 md:grid-cols-3">
-                  <div className="">
-                    <Booking />
-                  </div>
-                  <div className="col-span-2">
-                    <MapBoxMap />
-                  </div>
-                </div>
+              <SelectedCarAmountContext.Provider
+                value={{ carAmount, setCarAmount }}
+              >
+                <BookingOrRentingContext.Provider
+                  value={{ boookingOrRenting, setBookingOrRenting }}
+                >
+                  <NumberOfRentingDaysContext.Provider
+                    value={{ numberOfRentingDAys, setNumberOfRentingDays }}
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-3">
+                      <div className="">
+                        <Booking />
+                      </div>
+                      <div className="col-span-2">
+                        <MapBoxMap />
+                      </div>
+                    </div>
+                  </NumberOfRentingDaysContext.Provider>
+                </BookingOrRentingContext.Provider>
               </SelectedCarAmountContext.Provider>
             </DirectionDataContext.Provider>
           </DestinationCoordsContext.Provider>

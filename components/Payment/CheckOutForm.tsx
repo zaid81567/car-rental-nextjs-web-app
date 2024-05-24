@@ -48,7 +48,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ carAmount }) => {
       clientSecret: client_secret,
       elements,
       confirmParams: {
-        return_url: "http://localhost:3000/Dashboard",
+        return_url: `${process.env.NEXT_PUBLIC_DOMAIN_URL}/Dashboard`,
       },
     });
 
